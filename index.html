@@ -50,11 +50,51 @@
             margin-bottom: 1rem;
         }
 
+        .collapsible-container {
+            width: 100%;
+            border: 2px solid var(--color-secondary);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .collapsible {
+            background-color: var(--color-primary);
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .active, .collapsible:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
         .about {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
             font-size: 1.1em;
             color: var(--color-text-light);
-            margin-bottom: 2rem;
             text-align: justify;
+            padding: 0 18px;
+            background-color: var(--color-surface);
         }
 
         label {
@@ -147,11 +187,14 @@
 <body>
     <div class="container">
         <h1>When in doubt...dump it out!</h1>
-        <div class="about">
-            <p>The Doubt Dumpster is here for you to get those doubts, those ‘what ifs’, out of your head so you can get back to trusting your beautiful self more fully.</p>
-            <p>And the best part about it is that there is no data landfill here. This means that the moment you press 'dump it out!,' no record exists! Doubts incinerated, data destroyed, all gone for good.</p>
-            <p>So you can feel totally free to ditch your doubts, knowing that no one will ever see what you have dumped out.</p>
-            <p>The moment you have it, dump it and be done with it. Throw your doubt…out!</p>
+        <div class="collapsible-container">
+            <button class="collapsible">What's this all about?</button>
+            <div class="about">
+                <p>The Doubt Dumpster is here for you to get those doubts, those 'what ifs', out of your head so you can get back to trusting your beautiful self more fully.</p>
+                <p>And the best part about it is that there is no data landfill here. This means that the moment you press 'dump it out!,' no record exists! Doubts incinerated, data destroyed, all gone for good.</p>
+                <p>So you can feel totally free to ditch your doubts, knowing that no one will ever see what you have dumped out.</p>
+                <p>The moment you have it, dump it and be done with it. Throw your doubt…out!</p>
+            </div>
         </div>
 
         <label id="mainLabel" for="whatIf">What if...</label>
@@ -166,6 +209,9 @@
         const textarea = document.getElementById('whatIf');
         const dumpButton = document.getElementById('dumpIt');
         const resetButton = document.getElementById('resetButton');
+        const coll = document.getElementsByClassName("collapsible")[0];
+        const content = coll.nextElementSibling;
+        let isFirstDump = true;
 
         const responses = [
             "Awesome! You've just lightened your load. Remember to trust yourself with all of your heart. You're doing great.",
@@ -180,6 +226,18 @@
         ];
 
         const defaultResponse = "Awesome! You've just lightened your load. Remember to trust yourself with all of your heart. You're doing great.";
+
+        coll.addEventListener("click", function() {
+            this.classList.toggle("active");
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+
+        // Trigger the click event to open it by default
+        coll.click();
 
         dumpButton.addEventListener('click', function () {
             const thought = textarea.value.trim();
@@ -205,6 +263,13 @@
                 spread: 70,
                 origin: { y: 0.6 }
             });
+
+            if (isFirstDump) {
+                if (coll.classList.contains("active")) {
+                    coll.click(); // Close the collapsible section
+                }
+                isFirstDump = false;
+            }
         });
 
         resetButton.addEventListener('click', function () {
