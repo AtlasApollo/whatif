@@ -6,58 +6,79 @@
     <title>Doubt Dumpster</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #E5F4E3; /* Light green for a natural feel */
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: #FAF3E0; /* Warm beige for a natural contrast */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            border: 2px solid #8C6E53; /* Brown border */
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 2em;
+            color: #4A7C59; /* Rich green */
+            margin-bottom: 15px;
+        }
+        .about {
+            font-size: 1.1em;
+            color: #6B4F4F; /* Subtle brown text */
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
         label {
-            font-size: 2em;
+            font-size: 1.5em;
+            color: #4A7C59; /* Green for emphasis */
             margin-bottom: 10px;
         }
         textarea {
-            font-size: 1.5em;
+            font-size: 1.2em;
             padding: 10px;
-            width: 300px;
+            width: 100%;
             height: 100px;
             margin-bottom: 20px;
             resize: vertical;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 2px solid #8C6E53; /* Brown border */
+            border-radius: 10px;
+            background-color: #FDFCF6; /* Light natural shade */
+            color: #4A4A4A;
+            outline: none;
+        }
+        textarea:focus {
+            border-color: #4A7C59; /* Green border on focus */
         }
         button {
             font-size: 1.2em;
-            padding: 10px 20px;
+            padding: 10px 25px;
             margin-top: 10px;
-            background-color: #4CAF50;
+            background-color: #4A7C59; /* Nature green */
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #396947; /* Darker green for hover */
+            transform: scale(1.05); /* Slight hover zoom */
         }
         #resetButton {
             display: none;
-            background-color: #2196F3;
+            background-color: #8C6E53; /* Brown reset button */
         }
         #resetButton:hover {
-            background-color: #1e87d9;
+            background-color: #74563D; /* Darker brown for hover */
         }
     </style>
 </head>
@@ -65,9 +86,9 @@
     <div class="container">
         <h1>When in doubt...dump it out!</h1>
         <div class="about">
-            The Doubt Dumpster is here for you to get those doubts out of your head so you can get back to trusting your beautiful self more fully.<br/><br/>
-            And the best part about it is that there is no data landfill here. This means that the moment you press ‘dump it out!,’ no record exists! Doubts incinerated, data destroyed, all gone for good.<br/><br/>
-            So you can feel totally free to ditch your doubts, knowing that no one will ever see what you have dumped out.</br></br>
+            The Doubt Dumpster is here for you to get those doubts out of your head so you can get back to trusting your beautiful self more fully.<br><br>
+            And the best part about it is that there is no data landfill here. This means that the moment you press ‘dump it out!,’ no record exists! Doubts incinerated, data destroyed, all gone for good.<br><br>
+            So you can feel totally free to ditch your doubts, knowing that no one will ever see what you have dumped out.<br><br>
             The moment you have it, dump it and be done with it!
         </div>
 
@@ -84,7 +105,6 @@
         const dumpButton = document.getElementById('dumpIt');
         const resetButton = document.getElementById('resetButton');
 
-        // Array of responses
         const responses = [
             "Awesome! You’ve just lightened your load. Remember to trust yourself with all of your heart. You’re doing great.",
             "That’s it! No more stinky overthinky, just dump it out!",
@@ -96,45 +116,35 @@
             "Always doubt the doubt.",
             "It’s time to travel out of your head and into your heart."
         ];
-        
-        // Default response in case of an issue
+
         const defaultResponse = "Awesome! You’ve just lightened your load. Remember to trust yourself with all of your heart. You’re doing great.";
-        
-        // Event listener for the dump button
+
         dumpButton.addEventListener('click', function () {
             const thought = textarea.value.trim();
-        
+
             if (!thought) {
                 alert("Please enter a thought before dumping it!");
                 return;
             }
-        
-            // Select a random response or fallback to the default
+
             const randomResponse = responses.length > 0
                 ? responses[Math.floor(Math.random() * responses.length)]
                 : defaultResponse;
-        
-            // Update the label with the response
+
             label.textContent = randomResponse;
-        
-            // Hide the textarea and the dump button
+
             textarea.style.display = 'none';
             dumpButton.style.display = 'none';
-        
-            // Show the reset button
             resetButton.style.display = 'inline-block';
-        
-            // Trigger confetti
+
             confetti({
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 }
             });
         });
-        
-        // Event listener for the reset button
+
         resetButton.addEventListener('click', function () {
-            // Reset everything
             label.textContent = "What if...";
             textarea.style.display = 'block';
             textarea.value = '';
