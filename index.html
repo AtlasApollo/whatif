@@ -19,9 +19,12 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         label {
-            display: block;
             font-size: 2em;
             margin-bottom: 10px;
         }
@@ -32,19 +35,34 @@
             height: 100px;
             margin-bottom: 20px;
             resize: vertical;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         button {
-            font-size: 1.5em;
+            font-size: 1.2em;
             padding: 10px 20px;
+            margin-top: 10px;
             background-color: #4CAF50;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-top: 20px;
         }
         button:hover {
             background-color: #45a049;
+        }
+        #resetButton {
+            display: none;
+            background-color: #2196F3;
+        }
+        #resetButton:hover {
+            background-color: #1e87d9;
+        }
+        #thoughtDisplay {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
         }
     </style>
 </head>
@@ -53,17 +71,36 @@
         <label id="mainLabel" for="whatIf">What if...</label>
         <textarea id="whatIf" placeholder="Enter your thought..."></textarea>
         <button id="dumpIt">Dump it!</button>
+        <button id="resetButton">Start Over</button>
+        <div id="thoughtDisplay"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        document.getElementById('dumpIt').addEventListener('click', function() {
-            // Change the label
-            document.getElementById('mainLabel').textContent = "Awesome! Nice one.";
+        const label = document.getElementById('mainLabel');
+        const textarea = document.getElementById('whatIf');
+        const dumpButton = document.getElementById('dumpIt');
+        const resetButton = document.getElementById('resetButton');
+        const thoughtDisplay = document.getElementById('thoughtDisplay');
 
-            // Hide the textarea and button
-            document.getElementById('whatIf').style.display = 'none';
-            this.style.display = 'none';
+        dumpButton.addEventListener('click', function() {
+            const thought = textarea.value.trim();
+
+            if (!thought) {
+                alert("Please enter a thought before dumping it!");
+                return;
+            }
+
+            // Change the label and display the thought
+            label.textContent = "Awesome! Nice one.";
+            thoughtDisplay.textContent = `You wrote: "${thought}"`;
+
+            // Hide the textarea and the dump button
+            textarea.style.display = 'none';
+            dumpButton.style.display = 'none';
+
+            // Show the reset button
+            resetButton.style.display = 'inline-block';
 
             // Trigger confetti
             confetti({
@@ -72,8 +109,16 @@
                 origin: { y: 0.6 }
             });
         });
+
+        resetButton.addEventListener('click', function() {
+            // Reset everything
+            label.textContent = "What if...";
+            textarea.style.display = 'block';
+            textarea.value = '';
+            dumpButton.style.display = 'inline-block';
+            resetButton.style.display = 'none';
+            thoughtDisplay.textContent = '';
+        });
     </script>
 </body>
 </html>
-
-
