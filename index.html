@@ -3,85 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doubt Dumpster</title>
+    <title>Doubt Dumpster - Dump Your Doubts</title>
     <style>
+        :root {
+            --color-primary: #4A7C59;
+            --color-primary-dark: #396947;
+            --color-secondary: #8C6E53;
+            --color-secondary-dark: #74563D;
+            --color-background: #E5F4E3;
+            --color-surface: #FAF3E0;
+            --color-text: #4A4A4A;
+            --color-text-light: #6B4F4F;
+            --font-main: 'Arial', sans-serif;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: var(--font-main);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            background-color: #E5F4E3; /* Light green for a natural feel */
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
         }
+
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            background: #FAF3E0; /* Warm beige for a natural contrast */
-            padding: 30px;
+            background: var(--color-surface);
+            padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            border: 2px solid #8C6E53; /* Brown border */
-            max-width: 500px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--color-secondary);
+            max-width: 600px;
+            width: 90%;
+            margin: 2rem;
         }
+
         h1 {
-            font-size: 2em;
-            color: #4A7C59; /* Rich green */
-            margin-bottom: 15px;
+            font-size: 2.5em;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
         }
+
         .about {
             font-size: 1.1em;
-            color: #6B4F4F; /* Subtle brown text */
-            margin-bottom: 20px;
-            line-height: 1.5;
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+            text-align: justify;
         }
+
         label {
             font-size: 1.5em;
-            color: #4A7C59; /* Green for emphasis */
-            margin-bottom: 10px;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: all 0.3s ease;
         }
+
+        label.message {
+            font-size: 1.8em;
+            color: var(--color-secondary);
+            background-color: rgba(74, 124, 89, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         textarea {
             font-size: 1.2em;
-            padding: 10px;
+            padding: 1rem;
             width: 100%;
-            height: 100px;
-            margin-bottom: 20px;
+            height: 120px;
+            margin-bottom: 1rem;
             resize: vertical;
-            border: 2px solid #8C6E53; /* Brown border */
+            border: 2px solid var(--color-secondary);
             border-radius: 10px;
-            background-color: #FDFCF6; /* Light natural shade */
-            color: #4A4A4A;
-            outline: none;
+            background-color: #FDFCF6;
+            color: var(--color-text);
+            transition: border-color 0.3s ease;
         }
+
         textarea:focus {
-            border-color: #4A7C59; /* Green border on focus */
+            border-color: var(--color-primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.2);
         }
+
         button {
             font-size: 1.2em;
-            padding: 10px 25px;
-            margin-top: 10px;
-            background-color: #4A7C59; /* Nature green */
+            padding: 0.8rem 1.5rem;
+            margin-top: 1rem;
+            background-color: var(--color-primary);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
         }
-        button:hover {
-            background-color: #396947; /* Darker green for hover */
-            transform: scale(1.05); /* Slight hover zoom */
+
+        button:hover, button:focus {
+            background-color: var(--color-primary-dark);
+            transform: translateY(-2px);
         }
+
+        button:active {
+            transform: translateY(0);
+        }
+
         #resetButton {
             display: none;
-            background-color: #8C6E53; /* Brown reset button */
+            background-color: var(--color-secondary);
         }
-        #resetButton:hover {
-            background-color: #74563D; /* Darker brown for hover */
+
+        #resetButton:hover, #resetButton:focus {
+            background-color: var(--color-secondary-dark);
         }
-        #main-label {
-            margin: 40px;
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .about, textarea {
+                font-size: 1em;
+            }
+
+            button {
+                font-size: 1.1em;
+                padding: 0.7rem 1.2rem;
+            }
         }
     </style>
 </head>
@@ -89,14 +148,14 @@
     <div class="container">
         <h1>When in doubt...dump it out!</h1>
         <div class="about">
-            The Doubt Dumpster is here for you to get those doubts out of your head so you can get back to trusting your beautiful self more fully.<br><br>
-            And the best part about it is that there is no data landfill here. This means that the moment you press ‘dump it out!,’ no record exists! Doubts incinerated, data destroyed, all gone for good.<br><br>
-            So you can feel totally free to ditch your doubts, knowing that no one will ever see what you have dumped out.<br><br>
-            The moment you have it, dump it and be done with it!
+            <p>The Doubt Dumpster is here for you to get those doubts out of your head so you can get back to trusting your beautiful self more fully.</p>
+            <p>And the best part about it is that there is no data landfill here. This means that the moment you press 'dump it out!,' no record exists! Doubts incinerated, data destroyed, all gone for good.</p>
+            <p>So you can feel totally free to ditch your doubts, knowing that no one will ever see what you have dumped out.</p>
+            <p>The moment you have it, dump it and be done with it!</p>
         </div>
 
-        <label id="mainLabel" class="main-label" for="whatIf">What if...</label>
-        <textarea id="whatIf" placeholder="Enter your doubt..."></textarea>
+        <label id="mainLabel" for="whatIf">What if...</label>
+        <textarea id="whatIf" placeholder="Enter your doubt..." aria-label="Enter your doubt"></textarea>
         <button id="dumpIt">Dump it out!</button>
         <button id="resetButton">Dump another doubt!</button>
     </div>
@@ -109,18 +168,18 @@
         const resetButton = document.getElementById('resetButton');
 
         const responses = [
-            "Awesome! You’ve just lightened your load. Remember to trust yourself with all of your heart. You’re doing great.",
-            "That’s it! No more stinky overthinky, just dump it out!",
-            "Well done. You’re giving yourself the present of presence.",
-            "Great job and remember, don’t stew over what you already knew.",
-            "Forget ‘what IF,’ let’s enjoy ‘what IS.’",
+            "Awesome! You've just lightened your load. Remember to trust yourself with all of your heart. You're doing great.",
+            "That's it! No more stinky overthinky, just dump it out!",
+            "Well done. You're giving yourself the present of presence.",
+            "Great job and remember, don't stew over what you already knew.",
+            "Forget 'what IF,' let's enjoy 'what IS.'",
             "Trust that quiet whisper of your Self that knows the truth.",
             "Your intuition means something. Honor it.",
             "Always doubt the doubt.",
-            "It’s time to travel out of your head and into your heart."
+            "It's time to travel out of your head and into your heart."
         ];
 
-        const defaultResponse = "Awesome! You’ve just lightened your load. Remember to trust yourself with all of your heart. You’re doing great.";
+        const defaultResponse = "Awesome! You've just lightened your load. Remember to trust yourself with all of your heart. You're doing great.";
 
         dumpButton.addEventListener('click', function () {
             const thought = textarea.value.trim();
@@ -135,6 +194,7 @@
                 : defaultResponse;
 
             label.textContent = randomResponse;
+            label.classList.add('message');
 
             textarea.style.display = 'none';
             dumpButton.style.display = 'none';
@@ -149,6 +209,7 @@
 
         resetButton.addEventListener('click', function () {
             label.textContent = "What if...";
+            label.classList.remove('message');
             textarea.style.display = 'block';
             textarea.value = '';
             dumpButton.style.display = 'inline-block';
@@ -157,3 +218,4 @@
     </script>
 </body>
 </html>
+
