@@ -59,11 +59,6 @@
         #resetButton:hover {
             background-color: #1e87d9;
         }
-        #thoughtDisplay {
-            margin-top: 20px;
-            font-size: 1.5em;
-            color: #333;
-        }
     </style>
 </head>
 <body>
@@ -80,7 +75,6 @@
         <textarea id="whatIf" placeholder="Enter your doubt..."></textarea>
         <button id="dumpIt">Dump it out!</button>
         <button id="resetButton">Start Over</button>
-        <div id="thoughtDisplay"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -89,27 +83,47 @@
         const textarea = document.getElementById('whatIf');
         const dumpButton = document.getElementById('dumpIt');
         const resetButton = document.getElementById('resetButton');
-        const thoughtDisplay = document.getElementById('thoughtDisplay');
 
-        dumpButton.addEventListener('click', function() {
+        // Array of responses
+        const responses = [
+            "Awesome! You’ve just lightened your load. Remember to trust yourself with all of your heart. You’re doing great.",
+            "That’s it! No more stinky overthinky, just dump it out!",
+            "Well done. You’re giving yourself the present of presence.",
+            "Great job and remember, don’t stew over what you already knew.",
+            "Forget ‘what IF,’ let’s enjoy ‘what IS.’",
+            "Trust that quiet whisper of your Self that knows the truth.",
+            "Your intuition means something. Honor it.",
+            "Always doubt the doubt.",
+            "It’s time to travel out of your head and into your heart."
+        ];
+        
+        // Default response in case of an issue
+        const defaultResponse = "Awesome! You’ve just lightened your load. Remember to trust yourself with all of your heart. You’re doing great.";
+        
+        // Event listener for the dump button
+        dumpButton.addEventListener('click', function () {
             const thought = textarea.value.trim();
-
+        
             if (!thought) {
                 alert("Please enter a thought before dumping it!");
                 return;
             }
-
-            // Change the label and display the thought
-            label.textContent = "Awesome! Nice one.";
-            thoughtDisplay.textContent = `You wrote: "${thought}"`;
-
+        
+            // Select a random response or fallback to the default
+            const randomResponse = responses.length > 0
+                ? responses[Math.floor(Math.random() * responses.length)]
+                : defaultResponse;
+        
+            // Update the label with the response
+            label.textContent = randomResponse;
+        
             // Hide the textarea and the dump button
             textarea.style.display = 'none';
             dumpButton.style.display = 'none';
-
+        
             // Show the reset button
             resetButton.style.display = 'inline-block';
-
+        
             // Trigger confetti
             confetti({
                 particleCount: 100,
@@ -117,15 +131,15 @@
                 origin: { y: 0.6 }
             });
         });
-
-        resetButton.addEventListener('click', function() {
+        
+        // Event listener for the reset button
+        resetButton.addEventListener('click', function () {
             // Reset everything
             label.textContent = "What if...";
             textarea.style.display = 'block';
             textarea.value = '';
             dumpButton.style.display = 'inline-block';
             resetButton.style.display = 'none';
-            thoughtDisplay.textContent = '';
         });
     </script>
 </body>
